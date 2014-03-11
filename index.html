@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<title>Jogo dos Blocos</title>
+	<head></head>
+	<body>
+		<canvas id="myCanvas" width="800" height="800"></canvas>
+		<div id="texto" width="800" height="30"></div>
+	</body>
+	<script>
+		var larg = 25;
+		var w = 800;
+		var h = 800;
+		var x = 0;
+		var y = 0;
+		var c = document.getElementById("myCanvas");
+		var ctx = c.getContext("2d");
+		
+		window.addEventListener('keydown', function(e) {
+			//alert(e.keyCode);
+			var aux = 0;
+			if (e.keyCode == 40) {
+				ctx.clearRect(x, y, larg - 1, larg - 1);
+				aux=y;
+				y += larg;
+				if(y>=h){y=aux;}
+				geraQuad();
+			};
+			if (e.keyCode == 38) {
+				ctx.clearRect(x, y, larg - 1, larg - 1);
+				aux=y;
+				y -= larg;
+				if(y<0){y=aux;}
+				geraQuad();
+			};
+			if (e.keyCode == 39) {
+				ctx.clearRect(x, y, larg - 1, larg - 1);
+				aux=x;
+				x += larg;
+				if(x>=h){x=aux;}
+				geraQuad();
+			};
+			if (e.keyCode == 37) {
+				ctx.clearRect(x, y, larg - 1, larg - 1);
+				aux=x;
+				x -= larg;
+				if(x<0){x=aux;}
+				geraQuad();
+			};
+			document.getElementById("texto").innerHTML="X:"+x+" Y:"+y;
+		}, false);
+
+		for (var i = larg; i < w; i = i + larg) {
+			ctx.lineWidth = 1;
+			ctx.moveTo(i, 0);
+			ctx.lineTo(i, w);
+			ctx.stroke();
+		}
+		for (var i = larg; i < h; i = i + larg) {
+			ctx.moveTo(0, i);
+			ctx.lineTo(h, i);
+			ctx.stroke();
+		}
+		geraQuad();
+		function geraQuad() {
+			ctx.fillStyle = "red";
+			ctx.fillRect(x, y, larg, larg);
+		};
+	</script>
+</html>
