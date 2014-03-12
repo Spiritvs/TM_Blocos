@@ -1,119 +1,118 @@
 <!DOCTYPE html>
 <html>
-	<title>Jogo dos Blocos</title>
-	<head></head>
-	<body>
-		<canvas id="myCanvas" width="800" height="800"></canvas>
-		<div id="texto" width="800" height="30"></div>
+	<title>XtrmPixel</title>
+	<head>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body onload="init()">
+		<canvas id="myCanvas" width="800" height="600"></canvas>
+		<div id="texto" width="1000" height="30"></div>
 	</body>
 	<script>
 		var larg = 25;
 		var w = 800;
-		var h = 800;
-		var x = 0;
-		var y = 0;
+		var h = 600;
 		var c = document.getElementById("myCanvas");
 		window.addEventListener('keydown', keyP, false);
 
 		var ctx = c.getContext("2d");
 
-		geraGrelha();
-	//	addRect(100, 100, 25, 25, '#2BB8FF');
-		geraQuad();
+		function init() {
+			addRect(0, 100, 100, 25, 25, "blue");
+			addRect(1, 200, 200, 25, 25, "green");
+			addRect(2, 300, 300, 25, 25, "red");
+			//geraQuad();
+		}
 
 		var boxes = [];
-		
+
 		//Constructor
-		function Box() {
-			this.x = 0;
-			this.y = 0;
-			this.w = 25;
-			this.h = 25;
-			this.fill = '#444444';
+		function Box(id, x, y, w, h, fill) {
+			this.id = id;
+			this.x = x;
+			this.y = y;
+			this.w = w;
+			this.h = h;
+			this.fill = fill;
 		}
 
-		function addRect(x, y, w, h, fill) {
-			var rect = new Box;
-			rect.x = x;
-			rect.y = y;
-			rect.w = w;
-			rect.h = h;
-			rect.fill = fill;
+		function addRect(id, x, y, w, h, fill) {
+			var rect = new Box(id, x, y, w, h, fill);
 			boxes.push(rect);
-			invalidate();
+			geraQuad(x, y, w, h, fill);
 		}
 
-		function geraGrelha() {
-			//for (var i = larg; i < w; i = i + larg) {
-			for (var i = 0; i <= w; i = i + larg) {
-				ctx.lineWidth = 1;
-				ctx.moveTo(i, 0);
-				ctx.lineTo(i, w);
-				ctx.stroke();
-			}
-			//for (var i = larg; i < h; i = i + larg) {
-			for (var i = 0; i <= h; i = i + larg) {
-				ctx.moveTo(0, i);
-				ctx.lineTo(h, i);
-				ctx.stroke();
-			}
-
-		}
-
-		function geraQuad() {
-			ctx.fillStyle = "red";
-			ctx.fillRect(x, y, larg, larg);
+		function geraQuad(x, y, w, h, fill) {
+			ctx.fillStyle = fill;
+			ctx.fillRect(x, y, w, h);
 		};
 
-		function clearCanvas() {
-			c.width = c.width;
-			//ctx.clearRect(x, y, larg, larg);
+		function clearCanvas(x, y, w, h) {
+			//c.width = c.width;
+			ctx.clearRect(x, y, larg, larg);
 		}
 
 		function keyP(e) {
 			//alert(e.keyCode);
 			var aux = 0;
-			if (e.keyCode == 40) {
-				clearCanvas();
-				aux = y;
-				y += larg;
-				if (y >= h) {
-					y = aux;
+			if (e.keyCode == 83) {
+				clearCanvas(boxes[0].x, boxes[0].y, boxes[0].w, boxes[0].h, boxes[0].fill);
+				aux = boxes[0].y;
+				boxes[0].y += larg;
+				if (boxes[0].y >= h) {
+					boxes[0].y = aux;
 				}
-				geraGrelha();
-				geraQuad();
-			};
-			if (e.keyCode == 38) {
-				clearCanvas();
-				aux = y;
-				y -= larg;
-				if (y < 0) {
-					y = aux;
+				for (var i = 1; i <= 2; i++) {
+					if (boxes[0].x == boxes[i].x && boxes[0].y == boxes[i].y) {
+						boxes[0].y = aux;
+					}
 				}
-				geraGrelha();
-				geraQuad();
+				geraQuad(boxes[0].x, boxes[0].y, boxes[0].w, boxes[0].h, boxes[0].fill);
 			};
-			if (e.keyCode == 39) {
-				clearCanvas();
-				aux = x;
-				x += larg;
-				if (x >= h) {
-					x = aux;
+			if (e.keyCode == 87) {
+				clearCanvas(boxes[0].x, boxes[0].y, boxes[0].w, boxes[0].h, boxes[0].fill);
+				aux = boxes[0].y;
+				boxes[0].y -= larg;
+				if (boxes[0].y < 0) {
+					boxes[0].y = aux;
 				}
-				geraGrelha();
-				geraQuad();
-			};
-			if (e.keyCode == 37) {
-				clearCanvas();
-				aux = x;
-				x -= larg;
-				if (x < 0) {
-					x = aux;
+				for (var i = 1; i <= 2; i++) {
+					if (boxes[0].x == boxes[i].x && boxes[0].y == boxes[i].y) {
+						boxes[0].y = aux;
+					}
 				}
-				geraGrelha();
-				geraQuad();
+				geraQuad(boxes[0].x, boxes[0].y, boxes[0].w, boxes[0].h, boxes[0].fill);
 			};
-			document.getElementById("texto").innerHTML = "X:" + x + " Y:" + y;
+			if (e.keyCode == 68) {
+				clearCanvas(boxes[0].x, boxes[0].y, boxes[0].w, boxes[0].h, boxes[0].fill);
+				aux = boxes[0].x;
+				boxes[0].x += larg;
+				if (boxes[0].x >= w) {
+					boxes[0].x = aux;
+				}
+				for (var i = 1; i <= 2; i++) {
+					if (boxes[0].x == boxes[i].x && boxes[0].y == boxes[i].y) {
+						boxes[0].x = aux;
+					}
+				}
+				geraQuad(boxes[0].x, boxes[0].y, boxes[0].w, boxes[0].h, boxes[0].fill);
+			};
+			if (e.keyCode == 65) {
+				clearCanvas(boxes[0].x, boxes[0].y, boxes[0].w, boxes[0].h, boxes[0].fill);
+				aux = boxes[0].x;
+				boxes[0].x -= larg;
+				if (boxes[0].x < 0) {
+					boxes[0].x = aux;
+				}
+				for (var i = 1; i <= 2; i++) {
+					if (boxes[0].x == boxes[i].x && boxes[0].y == boxes[i].y) {
+						boxes[0].x = aux;
+					}
+				}
+				geraQuad(boxes[0].x, boxes[0].y, boxes[0].w, boxes[0].h, boxes[0].fill);
+			};
+			//document.getElementById("texto").innerHTML = "X:" + x + " Y:" + y;
+			document.getElementById("texto").innerHTML = boxes[0].id;
 		};
 	</script>
 </html>
