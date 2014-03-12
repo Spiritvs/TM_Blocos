@@ -13,57 +13,107 @@
 		var x = 0;
 		var y = 0;
 		var c = document.getElementById("myCanvas");
-		var ctx = c.getContext("2d");
-		
-		window.addEventListener('keydown', function(e) {
-			//alert(e.keyCode);
-			var aux = 0;
-			if (e.keyCode == 40) {
-				ctx.clearRect(x, y, larg - 1, larg - 1);
-				aux=y;
-				y += larg;
-				if(y>=h){y=aux;}
-				geraQuad();
-			};
-			if (e.keyCode == 38) {
-				ctx.clearRect(x, y, larg - 1, larg - 1);
-				aux=y;
-				y -= larg;
-				if(y<0){y=aux;}
-				geraQuad();
-			};
-			if (e.keyCode == 39) {
-				ctx.clearRect(x, y, larg - 1, larg - 1);
-				aux=x;
-				x += larg;
-				if(x>=h){x=aux;}
-				geraQuad();
-			};
-			if (e.keyCode == 37) {
-				ctx.clearRect(x, y, larg - 1, larg - 1);
-				aux=x;
-				x -= larg;
-				if(x<0){x=aux;}
-				geraQuad();
-			};
-			document.getElementById("texto").innerHTML="X:"+x+" Y:"+y;
-		}, false);
+		window.addEventListener('keydown', keyP, false);
 
-		for (var i = larg; i < w; i = i + larg) {
-			ctx.lineWidth = 1;
-			ctx.moveTo(i, 0);
-			ctx.lineTo(i, w);
-			ctx.stroke();
-		}
-		for (var i = larg; i < h; i = i + larg) {
-			ctx.moveTo(0, i);
-			ctx.lineTo(h, i);
-			ctx.stroke();
-		}
+		var ctx = c.getContext("2d");
+
+		geraGrelha();
+	//	addRect(100, 100, 25, 25, '#2BB8FF');
 		geraQuad();
+
+		var boxes = [];
+		
+		//Constructor
+		function Box() {
+			this.x = 0;
+			this.y = 0;
+			this.w = 25;
+			this.h = 25;
+			this.fill = '#444444';
+		}
+
+		function addRect(x, y, w, h, fill) {
+			var rect = new Box;
+			rect.x = x;
+			rect.y = y;
+			rect.w = w;
+			rect.h = h;
+			rect.fill = fill;
+			boxes.push(rect);
+			invalidate();
+		}
+
+		function geraGrelha() {
+			//for (var i = larg; i < w; i = i + larg) {
+			for (var i = 0; i <= w; i = i + larg) {
+				ctx.lineWidth = 1;
+				ctx.moveTo(i, 0);
+				ctx.lineTo(i, w);
+				ctx.stroke();
+			}
+			//for (var i = larg; i < h; i = i + larg) {
+			for (var i = 0; i <= h; i = i + larg) {
+				ctx.moveTo(0, i);
+				ctx.lineTo(h, i);
+				ctx.stroke();
+			}
+
+		}
+
 		function geraQuad() {
 			ctx.fillStyle = "red";
 			ctx.fillRect(x, y, larg, larg);
+		};
+
+		function clearCanvas() {
+			c.width = c.width;
+			//ctx.clearRect(x, y, larg, larg);
+		}
+
+		function keyP(e) {
+			//alert(e.keyCode);
+			var aux = 0;
+			if (e.keyCode == 40) {
+				clearCanvas();
+				aux = y;
+				y += larg;
+				if (y >= h) {
+					y = aux;
+				}
+				geraGrelha();
+				geraQuad();
+			};
+			if (e.keyCode == 38) {
+				clearCanvas();
+				aux = y;
+				y -= larg;
+				if (y < 0) {
+					y = aux;
+				}
+				geraGrelha();
+				geraQuad();
+			};
+			if (e.keyCode == 39) {
+				clearCanvas();
+				aux = x;
+				x += larg;
+				if (x >= h) {
+					x = aux;
+				}
+				geraGrelha();
+				geraQuad();
+			};
+			if (e.keyCode == 37) {
+				clearCanvas();
+				aux = x;
+				x -= larg;
+				if (x < 0) {
+					x = aux;
+				}
+				geraGrelha();
+				geraQuad();
+			};
+			document.getElementById("texto").innerHTML = "X:" + x + " Y:" + y;
 		};
 	</script>
 </html>
