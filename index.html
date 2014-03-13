@@ -62,7 +62,7 @@
 				if (boxes[0].y >= h) {
 					boxes[0].y = aux;
 				}
-				for (var i = 1; i <= 2; i++) {
+				for (var i = 1; i < boxes.length; i++) {
 					if (boxes[0].x == boxes[i].x && boxes[0].y == boxes[i].y) {
 						boxes[0].y = aux;
 					}
@@ -76,7 +76,7 @@
 				if (boxes[0].y < 0) {
 					boxes[0].y = aux;
 				}
-				for (var i = 1; i <= 2; i++) {
+				for (var i = 1; i < boxes.length; i++) {
 					if (boxes[0].x == boxes[i].x && boxes[0].y == boxes[i].y) {
 						boxes[0].y = aux;
 					}
@@ -90,7 +90,7 @@
 				if (boxes[0].x >= w) {
 					boxes[0].x = aux;
 				}
-				for (var i = 1; i <= 2; i++) {
+				for (var i = 1; i < boxes.length; i++) {
 					if (boxes[0].x == boxes[i].x && boxes[0].y == boxes[i].y) {
 						boxes[0].x = aux;
 					}
@@ -104,7 +104,7 @@
 				if (boxes[0].x < 0) {
 					boxes[0].x = aux;
 				}
-				for (var i = 1; i <= 2; i++) {
+				for (var i = 1; i < boxes.length; i++) {
 					if (boxes[0].x == boxes[i].x && boxes[0].y == boxes[i].y) {
 						boxes[0].x = aux;
 					}
