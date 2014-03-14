@@ -18,13 +18,13 @@
 		var ctx = c.getContext("2d");
 
 		function init() {
-			addRect(0, 100, 100, 25, 25, "blue");
-			addRect(1, 200, 200, 25, 25, "green");
-			addRect(2, 300, 300, 25, 25, "red");
+			addRect(0, 0, 0, 25, 25, "blue");
+			addRect(1, 2, 2, 25, 25, "green");
+			addRect(2, 4, 4, 25, 25, "red");
 			//geraQuad();
 		}
 
-		var boxes = [];
+		var boxes = [10][10];
 
 		//Constructor
 		function Box(id, x, y, w, h, fill) {
