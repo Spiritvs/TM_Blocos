@@ -1,4 +1,4 @@
-function init(){
+$(document).ready(function() {
 	var xMax = 40;
 	var yMax = 24;
 	var larg = 25;
@@ -6,11 +6,12 @@ function init(){
 	var boxes = new Array();
 	var socket = io.connect();
 
+geraArray();
 	var c = document.getElementById("myCanvas");
 	var ctx = c.getContext("2d");
 
 	socket.on("connect", function(data) {
-		geraArray();
+		
 	});
 
 	function geraArray() {
@@ -98,4 +99,5 @@ function init(){
 		}
 		geraQuad(boxes[msg.id].x, boxes[msg.id].y, boxes[msg.id].w, boxes[msg.id].h, boxes[msg.id].fill);
 	});
-}
+});
+

@@ -3,7 +3,6 @@ static = require('node-static'),
 io = require('socket.io');
 
 var server = http.createServer(handler);
-
 var fileServer = new static.Server('./html');
 
 function handler(request, response) {
@@ -31,20 +30,16 @@ function handler(request, response) {
 	request.resume();
 }
 
-// to manage connected clients
-
 var connectedClients = new Array();
 var id = 0;
 var x = 0;
 var y = 0;
 
-// attach a socketio interface to the server
 var socketio = io.listen(server);
 
 socketio.sockets.on('connection', function(client) {
 	connectedClients.push(client);
 	count = connectedClients.length;
-
 	client.emit("logged", {"id":id, "x":x, "y":y});
 	id++;
 	x++;
