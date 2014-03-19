@@ -41,10 +41,10 @@ socketio.sockets.on('connection', function(client) {
 	connectedClients.push(client);
 	count = connectedClients.length;
 	client.emit("logged", {"id":id, "x":x, "y":y});
+	socketio.sockets.emit('desenha', {"id":id, "x":x, "y":y});
 	id++;
 	x++;
 	y++;
-	socketio.sockets.emit('desenha', {"id":id, "x":x, "y":y});
 	client.on('disconnect', function() {
 		connectedClients.splice(connectedClients.indexOf(client), 1);
 		count = connectedClients.length;
