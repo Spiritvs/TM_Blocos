@@ -39,15 +39,21 @@
 			socket.on('count', function(data) {
 				$("#ncc").html(data.count);
 			});
-
+			var auxx = 5;
+			var auyy = 5;
 			socket.on('logged', function(data) {
+				console.log(data);
 				console.log("have an id");
 				//myColor = data.color;
 				myID = data.id;
 				$("#myid").html(myID);
+				addRect(myID, auxx, auyy, larg, larg, "green");
+				auxx = auxx + 5;
+				auyy = auyy + 5;
 			});
 
 			socket.on("click", function(data) {
+				console.log(data);
 				$("#log").append(data.id + " clicou em x:" + data.x + " y:" + data.y + "<br/>");
 			});
 
@@ -77,8 +83,8 @@
 
 		function init() {
 			geraArray();
-			addRect(0, 5, 5, larg, larg, "green");
-			addRect(1, 10, 10, larg, larg, "red");
+			//addRect(0, 5, 5, larg, larg, "green");
+			//addRect(1, 10, 10, larg, larg, "red");
 			tx();
 		}
 
