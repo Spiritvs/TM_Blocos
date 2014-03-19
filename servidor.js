@@ -1,81 +1,90 @@
-/**
- * "Client Counter" node.js
- * 
- * @author Pedro Moreira <pmoreira@estg.ipvc.pt> 2014.03.04
- * @version 0.1
- * 
- */
+var http = require('http'),
+static = require('node-static'),
+io = require('socket.io');
 
-
-// modulo com servidor http
-var 	http 		= require('http'),			//  http server
-		static		= require('node-static'),	//  static server
-		io			= require('socket.io');
-		
 var server = http.createServer(handler);
 
-// new fileserver for static content
-// static content is at the 'static' directory
-// notice: no need to prepend the full path to serve the file
 var fileServer = new static.Server('./html');
 
 function handler(request, response) {
-	    request.addListener('end', function () {
-			// if no filepath, serves cvisual.html by default
-		    console.log("----"+request.url);
-	        fileServer.serve(request, response, function (e, resp) {
-				var filePath = request.url;
-				console.log("==="+filePath);
-				if (e && e.status == 404) {
-					if (filePath == '/') {
-						httpcode = 200;
-						filePath = 'blocos.html';
-					} else {
-						httpcode = 404;
-						filePath = 'errorWorld.html';
-					}
+	request.addListener('end', function() {
+		// if no filepath, serves cvisual.html by default
+		console.log("----" + request.url);
+		fileServer.serve(request, response, function(e, resp) {
+			var filePath = request.url;
+			console.log("===" + filePath);
+			if (e && e.status == 404) {
+				if (filePath == '/') {
+					httpcode = 200;
+					filePath = 'cliente.html';
+				} else if (filePath == '/servidor') {
+					httpcode = 200;
+					filePath = 'ecra.html';
+				} else {
+					httpcode = 404;
+					filePath = 'errorWorld.html';
 				}
-                fileServer.serveFile(filePath, httpcode, {}, request, response);
-				});
-	    });
-request.resume();
+			}
+			fileServer.serveFile(filePath, httpcode, {}, request, response);
+		});
+	});
+	request.resume();
 }
 
 // to manage connected clients
+
 var connectedClients = new Array();
-var id=0;
+var id = 0;
+var x = 0;
+var y = 0;
 
 // attach a socketio interface to the server
 var socketio = io.listen(server);
 
 socketio.sockets.on('connection', function(client) {
-  	if (client.send) {console.log('ok');} else {console.log('nok');}
-  
-  	connectedClients.push(client);
-  	count = connectedClients.length;
-  	
-  	client.emit("logged",{"id":id});
-  	id++;
-   // emit a count message to all
-   
-   socketio.sockets.emit('count',{"count":count});
-      
-   // on disconnect from any client
-   // updates connectedClients and sends count message
-   client.on('disconnect', function () {
-		connectedClients.splice(connectedClients.indexOf(client), 1);
-        count = connectedClients.length;
-        socketio.sockets.emit('count', {"count": count});
-    });
-    
-    client.on("click", function(data) {
-    	socketio.sockets.emit("click",data);
-    });
-           
-   return;
+	connectedClients.push(client);
+	count = connectedClients.length;
 
-  });
+	client.emit("logged", {"id":id, "x":x, "y":y});
+	id++;
+	x++;
+	y++;
+	socketio.sockets.emit('desenha', {"id":id, "x":x, "y":y});
+	client.on('disconnect', function() {
+		connectedClients.splice(connectedClients.indexOf(client), 1);
+		count = connectedClients.length;
+	});
+
+	client.on("click", function(data) {
+		var comando;
+		var id = data.id;
+		var code = data.code;
+		switch(code) {
+			case 83:
+				comando = "down";
+				break;
+			case 87:
+				comando = "up";
+				break;
+			case 68:
+				comando = "right";
+				break;
+			case 65:
+				comando = "left";
+				break;
+		}
+		msg = {
+			"comando" : comando,
+			"id" : id
+		};
+		//mKeyP(msg);
+		socketio.sockets.emit('dados', {"comando":comando, "id":id});
+		//socketio.sockets.emit("click",data);
+	});
+
+	return;
+
+});
 
 var port = process.env.PORT || 5000;
 server.listen(port);
-
