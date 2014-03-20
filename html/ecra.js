@@ -6,12 +6,12 @@ $(document).ready(function() {
 	var boxes = new Array();
 	var socket = io.connect();
 
-geraArray();
+	geraArray();
 	var c = document.getElementById("myCanvas");
 	var ctx = c.getContext("2d");
 
 	socket.on("connect", function(data) {
-		
+
 	});
 
 	function geraArray() {
@@ -27,9 +27,9 @@ geraArray();
 
 	socket.on('desenha', function(dados) {
 
-		var rect = new Box(dados.id, dados.x, dados.y, larg, larg, "green");
+		var rect = new Box(dados.id, dados.x, dados.y, larg, larg, dados.cor);
 		boxes.push(rect);
-		geraQuad(dados.x, dados.y, larg, larg, "green");
+		geraQuad(dados.x, dados.y, larg, larg, dados.cor);
 	});
 
 	function Box(id, x, y, w, h, fill) {
@@ -65,39 +65,45 @@ geraArray();
 
 	// {"comando":"up","id",3}
 	socket.on('dados', function(msg) {
+		var aux = 0;
+		for(var x = 0 in boxes){
+			if(msg.id == boxes[x].id){
+				aux = x;
+			}
+		}
 		//alert(boxes[msg.id].x);
-		clearCanvas(boxes[msg.id].x, boxes[msg.id].y, boxes[msg.id].w, boxes[msg.id].h);
+		clearCanvas(boxes[aux].x, boxes[aux].y, boxes[aux].w, boxes[aux].h);
 		switch(msg.comando) {
 			case"up":
-				if (boxes[msg.id].y > 0) {
-					if (f[boxes[msg.id].x][boxes[msg.id].y - 1] == 0) {
-						boxes[msg.id].y--;
+				if (boxes[aux].y > 0) {
+					if (f[boxes[aux].x][boxes[aux].y - 1] == 0) {
+						boxes[aux].y--;
 					}
 				}
 				break;
 			case"left":
-				if (boxes[msg.id].x > 0) {
-					if (f[boxes[msg.id].x - 1][boxes[msg.id].y] == 0) {
-						boxes[msg.id].x--;
+				if (boxes[aux].x > 0) {
+					if (f[boxes[aux].x - 1][boxes[aux].y] == 0) {
+						boxes[aux].x--;
 					}
 				}
 				break;
 			case"down":
-				if (boxes[msg.id].y < yMax) {
-					if (f[boxes[msg.id].x][boxes[msg.id].y + 1] == 0) {
-						boxes[msg.id].y++;
+				if (boxes[aux].y < yMax) {
+					if (f[boxes[aux].x][boxes[aux].y + 1] == 0) {
+						boxes[aux].y++;
 					}
 				}
 				break;
 			case"right":
-				if (boxes[msg.id].x < xMax - 1) {
-					if (f[boxes[msg.id].x + 1][boxes[msg.id].y] == 0) {
-						boxes[msg.id].x++;
+				if (boxes[aux].x < xMax - 1) {
+					if (f[boxes[aux].x + 1][boxes[aux].y] == 0) {
+						boxes[aux].x++;
 					}
 				}
 				break;
 		}
-		geraQuad(boxes[msg.id].x, boxes[msg.id].y, boxes[msg.id].w, boxes[msg.id].h, boxes[msg.id].fill);
+		geraQuad(boxes[aux].x, boxes[aux].y, boxes[aux].w, boxes[aux].h, boxes[aux].fill);
 	});
 });
 

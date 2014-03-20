@@ -1,0 +1,19 @@
+#esquerda{
+width: 100px;
+height: 100px;
+}
+#cima{
+width: 100px;
+height: 100px;
+}
+#baixo{
+width: 100px;
+height: 100px;
+}
+#direita{
+width: 100px;
+height: 100px;
+}
+#myBody{
+	background-color:#CC0000;
+}

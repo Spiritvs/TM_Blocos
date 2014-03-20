@@ -31,20 +31,28 @@ function handler(request, response) {
 }
 
 var connectedClients = new Array();
+var cor= ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 
+'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red', 
+'silver', 'teal','yellow'];
 var id = 0;
 var x = 0;
 var y = 0;
+var aux = 0;
 
 var socketio = io.listen(server);
 
 socketio.sockets.on('connection', function(client) {
 	connectedClients.push(client);
 	count = connectedClients.length;
-	client.emit("logged", {"id":id, "x":x, "y":y});
-	socketio.sockets.emit('desenha', {"id":id, "x":x, "y":y});
+	if(id!=0){
+	client.emit("logged", {"id":id, "x":x, "y":y, "cor":cor[aux-1]});
+	socketio.sockets.emit('desenha', {"id":id, "x":x, "y":y, "cor":cor[aux-1]});
+	};
 	id++;
 	x++;
 	y++;
+	aux++;
+	
 	client.on('disconnect', function() {
 		connectedClients.splice(connectedClients.indexOf(client), 1);
 		count = connectedClients.length;
