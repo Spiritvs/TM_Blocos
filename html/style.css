@@ -1,3 +1,8 @@
 #myCanvas{
 	background: url(fundo.png);
 }
+#qr{
+	float:right;
+	width: 100px;
+	height: 100px;
+}

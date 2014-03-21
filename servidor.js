@@ -44,15 +44,14 @@ var socketio = io.listen(server);
 socketio.sockets.on('connection', function(client) {
 	connectedClients.push(client);
 	count = connectedClients.length;
-	if(id!=0){
-	client.emit("logged", {"id":id, "x":x, "y":y, "cor":cor[aux-1]});
-	socketio.sockets.emit('desenha', {"id":id, "x":x, "y":y, "cor":cor[aux-1]});
-	};
-	id++;
-	x++;
-	y++;
-	aux++;
 	
+	client.on('novoJogador', function(){
+	client.emit("logged", {"id":id, "x":x, "y":y, "cor":cor[aux]});
+	socketio.sockets.emit('desenha', {"id":id, "x":x, "y":y, "cor":cor[aux]});
+	id++;
+	aux++;
+	});
+
 	client.on('disconnect', function() {
 		connectedClients.splice(connectedClients.indexOf(client), 1);
 		count = connectedClients.length;

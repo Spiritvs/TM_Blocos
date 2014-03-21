@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	var myID = -1, pX = -1, pY = -1, pCor = '';
 	var socket = io.connect();
-
 	socket.on('connect', function(data) {
 		window.addEventListener('keydown', keyPressed, false);
 		//$("#esquerda").bind( "tap", tapHandler );
@@ -34,6 +33,7 @@ $(document).ready(function() {
 		 document.getElementById('direita').onclick=function(){socket.emit('click', {"id" : myID,"code" : 68});};
 		 document.getElementById('cima').onclick=function(){socket.emit('click', {"id" : myID,"code" : 87});};*/
 	});
+	socket.emit('novoJogador');
 	/*	$(document).bind("mobileinit", function(event) {
 	 $.extend($.mobile.zoom, {
 	 locked : true,
