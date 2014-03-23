@@ -1,5 +1,22 @@
 #myCanvas{
 	background: url(fundo.png);
+	border: 1px solid;
+	float: left;
+}
+#canvasFigura{
+	margin: 12.5px;
+	background-color:#ffffff; /*Branco*/
+}
+#figura{
+	width: 150px;
+	height: 150px;
+	background-color:#19469D; /*Azul*/
+}
+#left{
+	width: 150px;
+	height: 600px;
+	background-color:#008000; /*Verde*/
+	float: left;
 }
 #qr{
 	float:right;

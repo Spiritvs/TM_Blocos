@@ -9,10 +9,14 @@
 		<script type="text/javascript" src="ecra.js"></script>
 	</head>
 	<body>
-		<canvas id="myCanvas" width="1000" height="600">
-		</canvas>
+		<div id="left">
+			<div id="figura">
+				<canvas id="canvasFigura" width="125" height="125"></canvas>
+			</div>
+		</div>
+		<canvas id="myCanvas" width="800" height="600"></canvas>
 		<img id="qr"src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=172.16.179.119%3A5000&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" />
-		<div id="txt"></div>
+		<div id="txt">10 secs</div>
 		<button id="btn">Click</button>
 	</body>
 </html>

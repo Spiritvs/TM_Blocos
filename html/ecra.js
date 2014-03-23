@@ -1,65 +1,120 @@
 $(document).ready(function() {
-	var xMax = 40;
+	var xMax = 32;
 	var yMax = 24;
 	var larg = 25;
+	var aTestar = 0;
 	var f = new Array();
-	var figuras = new Array();
 	var boxes = new Array();
-	var socket = io.connect();
-
+	var figuras = new Array();
+	init();
 	geraArray();
-	geraFiguraTeste();
 	timer();
 	
 	var c = document.getElementById("myCanvas");
 	var ctx = c.getContext("2d");
 
-	var count = 10;
-	var counter = setInterval(timer, 1000);
-	//1000 will  run it every 1 second
+	var mc = document.getElementById("canvasFigura");
+	var mctx = mc.getContext("2d");
 
+	var tempo = 10;
+	var counter = setInterval(timer, 1000);	//1000 will  run it every 1 second
+	
+	var socket = io.connect();
+
+	/*var dois0 = {"figura":[{x:0,y:0},{x:2,y:0}]};
+	var dois1 = {"figura":[{x:0,y:0},{x:1,y:0}]};
+	var dois2 = {"figura":[{x:0,y:0},{x:0,y:1}]};
+	var dois3 = {"figura":[{x:0,y:0},{x:1,y:1}]};
+	var dois4 = {"figura":[{x:0,y:0},{x:0,y:2}]};
+	
+	var tres0 = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:2}]};
+	var tres1 = {"figura":[{x:0,y:0},{x:0,y:1},{x:0,y:2}]};
+	var tres2 = {"figura":[{x:0,y:0},{x:1,y:0},{x:2,y:0}]};
+	var tres3 = {"figura":[{x:0,y:0},{x:1,y:1},{x:0,y:2}]};
+	var tres4 = {"figura":[{x:0,y:0},{x:0,y:2},{x:2,y:2}]};
+	
+	var quatro0 = {"figura":[{x:0,y:0},{x:1,y:0},{x:2,y:0},{x:3,y:0}]};
+	var quatro1 = {"figura":[{x:0,y:0},{x:2,y:0},{x:0,y:2},{x:2,y:2}]};
+	var quatro2 = {"figura":[{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:2,y:1}]};
+	var quatro3 = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:0},{x:3,y:1}]};
+	var quatro4 = {"figura":[{x:0,y:0},{x:0,y:1},{x:0,y:2},{x:1,y:2}]};
+	
+	var cinco0 = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:2},{x:0,y:2},{x:2,y:0}]};
+	var cinco1 = {"figura":[{x:0,y:0},{x:0,y:1},{x:0,y:2},{x:1,y:2},{x:2,y:1}]};
+	var cinco2 = {"figura":[{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:2,y:0},{x:2,y:1}]};
+	var cinco3 = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:2},{x:3,y:1},{x:4,y:0}]};
+	var cinco4 = {"figura":[{x:0,y:1},{x:1,y:0},{x:1,y:2},{x:1,y:3},{x:2,y:1}]}; */
+	
+	function init(){
+	figuras[0] = {"figura":[{x:0,y:0},{x:2,y:0}]};
+	figuras[1] = {"figura":[{x:0,y:0},{x:1,y:0}]};
+	figuras[2]= {"figura":[{x:0,y:0},{x:0,y:1}]};
+	figuras[3] = {"figura":[{x:0,y:0},{x:1,y:1}]};
+	figuras[4] = {"figura":[{x:0,y:0},{x:0,y:2}]};
+	
+	figuras[5] = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:2}]};
+	figuras[6] = {"figura":[{x:0,y:0},{x:0,y:1},{x:0,y:2}]};
+	figuras[7] = {"figura":[{x:0,y:0},{x:1,y:0},{x:2,y:0}]};
+	figuras[8] = {"figura":[{x:0,y:0},{x:1,y:1},{x:0,y:2}]};
+	figuras[9] = {"figura":[{x:0,y:0},{x:0,y:2},{x:2,y:2}]};
+	
+	figuras[10] = {"figura":[{x:0,y:0},{x:1,y:0},{x:2,y:0},{x:3,y:0}]};
+	figuras[11] = {"figura":[{x:0,y:0},{x:2,y:0},{x:0,y:2},{x:2,y:2}]};
+	figuras[12] = {"figura":[{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:2,y:1}]};
+	figuras[13] = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:0},{x:3,y:1}]};
+	figuras[14]= {"figura":[{x:0,y:0},{x:0,y:1},{x:0,y:2},{x:1,y:2}]};
+	
+	figuras[15] = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:2},{x:0,y:2},{x:2,y:0}]};
+	figuras[16] = {"figura":[{x:0,y:0},{x:0,y:1},{x:0,y:2},{x:1,y:2},{x:2,y:1}]};
+	figuras[17] = {"figura":[{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:2,y:0},{x:2,y:1}]};
+	figuras[18] = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:2},{x:3,y:1},{x:4,y:0}]};
+	figuras[19] = {"figura":[{x:0,y:1},{x:1,y:0},{x:1,y:2},{x:1,y:3},{x:2,y:1}]};
+	};
+	
 	function timer() {
-		count--;
-		if (count <= 0) {
-			clearInterval(counter);
-			//percorreArray();
-			if (testaFigura(cinco1)) {
+		if(tempo == 10){
+			mc.width = mc.width;
+			aTestar = Math.floor((Math.random()*19));
+			desenhaFigura(figuras[aTestar]);
+		}
+		tempo--;
+		if (tempo <= 0) {
+			//clearInterval(counter);
+			if (testaFigura(figuras[aTestar])) {
 				alert("ok");
 			} else {
 				//alert("ko");
 			}
-			count = 10;
-			counter = setInterval(timer, 1000);
+			tempo = 10;
+			//counter = setInterval(timer, 1000);
 			//counter ended, do something here
-			return;
+			//return;
 		}
-
-		document.getElementById("txt").innerHTML = count + " secs";
 		//Do code for showing the number of seconds here
+		document.getElementById("txt").innerHTML = tempo + " secs";
 	}
 
 
-	socket.on("connect", function(data) {
-		$('#btn').click(function() {
-			
+	function desenhaFigura(fig) {
+		for (var j = 0; j < fig.figura.length; j++) {
+			var x = fig.figura[j].x * larg;
+			var y = fig.figura[j].y * larg;
+			mctx.fillStyle = "orange";
+			mctx.fillRect(x, y, larg, larg);
+			mctx.strokeStyle = "black";
+			mctx.lineWidth = 1;
+			mctx.strokeRect(x, y, larg, larg);
+		}
+	}
 
-		});
-	});
-
-	
 	function geraArray() {
 		for (var x = 0; x < xMax; x++) {
 			f[x] = new Array();
 			for (var y = 0; y < yMax; y++) {
 				f[x][y] = 0;
-				//alert(f[x][y]);
 			}
 		}
 	}
-
-	var figuras = {
-		nJogadores : 3
-	};
 
 	socket.on('desenha', function(dados) {
 		while (f[dados.x][dados.y] == 1) {
@@ -96,32 +151,8 @@ $(document).ready(function() {
 		ctx.clearRect(x, y, larg, larg);
 	}
 	
-	var dois0 = {"figura":[{x:0,y:0},{x:2,y:0}]};
-	var dois1 = {"figura":[{x:0,y:0},{x:1,y:0}]};
-	var dois2 = {"figura":[{x:0,y:0},{x:0,y:1}]};
-	var dois3 = {"figura":[{x:0,y:0},{x:1,y:1}]};
-	var dois4 = {"figura":[{x:0,y:0},{x:0,y:2}]};
-	
-	var tres0 = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:2}]};
-	var tres1 = {"figura":[{x:0,y:0},{x:0,y:1},{x:0,y:2}]};
-	var tres2 = {"figura":[{x:0,y:0},{x:1,y:0},{x:2,y:0}]};
-	var tres3 = {"figura":[{x:0,y:0},{x:1,y:1},{x:0,y:2}]};
-	var tres4 = {"figura":[{x:0,y:0},{x:0,y:2},{x:2,y:2}]};
-	
-	var quatro0 = {"figura":[{x:0,y:0},{x:1,y:0},{x:2,y:0},{x:3,y:0}]};
-	var quatro1 = {"figura":[{x:0,y:0},{x:2,y:0},{x:0,y:2},{x:2,y:2}]};
-	var quatro2 = {"figura":[{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:2,y:1}]};
-	var quatro3 = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:0},{x:3,y:1}]};
-	var quatro4 = {"figura":[{x:0,y:0},{x:0,y:1},{x:0,y:2},{x:1,y:2}]};
-	
-	var cinco0 = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:2},{x:0,y:2},{x:2,y:0}]};
-	var cinco1 = {"figura":[{x:0,y:0},{x:0,y:1},{x:0,y:2},{x:1,y:2},{x:2,y:1}]};
-	var cinco2 = {"figura":[{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:2,y:0},{x:2,y:1}]};
-	var cinco3 = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:2},{x:3,y:1},{x:4,y:0}]};
-	var cinco4 = {"figura":[{x:0,y:1},{x:1,y:0},{x:1,y:2},{x:1,y:3},{x:2,y:1}]};
-	
 	function testaFigura(fig) {
-		debugger;
+		//debugger;
 		// figura conseguida
 		var testaf = false;
 		
@@ -146,35 +177,7 @@ $(document).ready(function() {
 		return testaf;
 	}
 
-	function geraFiguraTeste() {
-		for (var x = 0; x < 3; x++) {
-			figuras[x] = new Array();
-			for (var y = 0; y < 3; y++) {
-				figuras[x][y] = 0;
-			}
-		}
-		figuras[0][0] = 1;
-		figuras[1][1] = 1;
-		figuras[2][2] = 1;
-	}
 
-	function percorreArray() {
-		for (var x = 0; x < xMax; x++) {
-				for (var y = 0; y < yMax; y++) {
-					if (f[x][y] == 1 && f[x+1][y + 1] == 1 && f[x+2][y + 2] == 1) {
-						alert("Bingo!");
-						break;
-					}
-				}
-			}
-	}
-
-
-	socket.on('teste', function(msg) {
-		console.log(msg);
-	});
-
-	// {"comando":"up","id",3}
 	socket.on('dados', function(msg) {
 		var aux = 0;
 		for (var x = 0 in boxes) {
