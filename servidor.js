@@ -31,7 +31,7 @@ function handler(request, response) {
 }
 
 var connectedClients = new Array();
-var cor= ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 
+var cor= ['aqua', 'blue', 'fuchsia', 'gray', 'green', 
 'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red', 
 'silver', 'teal','yellow'];
 var id = 0;

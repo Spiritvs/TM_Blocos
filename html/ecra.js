@@ -18,6 +18,7 @@ $(document).ready(function() {
 
 	var tempo = 10;
 	var nJogadores = 0;
+	var auxJogadores = 0;
 	var counter = setInterval(timer, 1000);	//1000 will  run it every 1 second
 	
 	var socket = io.connect();
@@ -84,14 +85,13 @@ $(document).ready(function() {
 			aTestar = Math.floor((Math.random()*5));
 			if (nJogadores < 2) {nJogadores=2;};
 			if (nJogadores > 5) {nJogadores=5;};
+			auxJogadores = nJogadores;
 			desenhaFigura(figuras[nJogadores][aTestar]);
 		}
 		tempo--;
 		if (tempo <= 0) {
 			//clearInterval(counter);
-			if (nJogadores < 2) {nJogadores=2;};
-			if (nJogadores > 5) {nJogadores=5;};
-			if (testaFigura(figuras[nJogadores][aTestar])) {
+			if (testaFigura(figuras[auxJogadores][aTestar])) {
 				alert("ok");
 			} else {
 				//alert("ko");
@@ -158,6 +158,9 @@ $(document).ready(function() {
 		y = y * larg;
 		ctx.fillStyle = fill;
 		ctx.fillRect(x, y, w, h);
+		ctx.strokeStyle = "black";
+		ctx.lineWidth = 1;
+		ctx.strokeRect(x, y, larg, larg);
 		//document.getElementById('txt').innerHTML = JSON.stringify(f);
 	};
 
