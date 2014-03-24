@@ -42,12 +42,13 @@ var aux = 0;
 var socketio = io.listen(server);
 
 socketio.sockets.on('connection', function(client) {
-	connectedClients.push(client);
-	count = connectedClients.length;
 	
 	client.on('novoJogador', function(){
+	connectedClients.push(client);
+	count = connectedClients.length;
 	client.emit("logged", {"id":id, "x":x, "y":y, "cor":cor[aux]});
 	socketio.sockets.emit('desenha', {"id":id, "x":x, "y":y, "cor":cor[aux]});
+	socketio.sockets.emit('count',{"count":count});
 	id++;
 	aux++;
 	});
@@ -55,6 +56,7 @@ socketio.sockets.on('connection', function(client) {
 	client.on('disconnect', function() {
 		connectedClients.splice(connectedClients.indexOf(client), 1);
 		count = connectedClients.length;
+		socketio.sockets.emit('count',{"count":count});
 	});
 
 	client.on("click", function(data) {
