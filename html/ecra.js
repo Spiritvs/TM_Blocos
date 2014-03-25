@@ -172,6 +172,10 @@ $(document).ready(function() {
 		ctx.clearRect(x, y, larg, larg);
 	}
 	
+	socket.on('apaga', function(data) {
+		clearCanvas(boxes[data.id].x, boxes[data.id].y, larg, larg);
+	});
+	
 	function testaFigura(fig) {
 		//debugger;
 		// figura conseguida

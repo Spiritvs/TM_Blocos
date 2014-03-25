@@ -38,7 +38,8 @@ var id = 0;
 var x = 0;
 var y = 0;
 var aux = 0;
-
+var apaga = 0;
+var idJogadores = new Array();
 var socketio = io.listen(server);
 
 socketio.sockets.on('connection', function(client) {
@@ -49,6 +50,9 @@ socketio.sockets.on('connection', function(client) {
 	client.emit("logged", {"id":id, "x":x, "y":y, "cor":cor[aux]});
 	socketio.sockets.emit('desenha', {"id":id, "x":x, "y":y, "cor":cor[aux]});
 	socketio.sockets.emit('count',{"count":count});
+	var msg = {"id":id, "idGrande":client.id, "cor":cor[aux]};
+	idJogadores.push(msg);
+	//console.log(idJogadores);
 	id++;
 	aux++;
 	});
@@ -56,7 +60,16 @@ socketio.sockets.on('connection', function(client) {
 	client.on('disconnect', function() {
 		connectedClients.splice(connectedClients.indexOf(client), 1);
 		count = connectedClients.length;
+		for(var i = 0; i<idJogadores.length; i++){
+			if(client.id == idJogadores[i].idGrande){
+				apaga = idJogadores[i].id;
+				cor.push(idJogadores[i].cor);
+				break;
+			}
+		}
 		socketio.sockets.emit('count',{"count":count});
+		socketio.sockets.emit('apaga',{"id":apaga});
+		console.log(apaga);
 	});
 
 	client.on("click", function(data) {

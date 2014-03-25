@@ -3,6 +3,11 @@
 	<title>XtrmPixel</title>
 	<head>
 		<script type="text/javascript" src="/jquery/jquery.min.js"></script>
+		<script>
+			$(document).bind("mobileinit", function(){
+				$.mobile.loadingMessage = false;
+			});
+		</script>
 		<script type="text/javascript" src="/jquery/jquery.mobile.min.js"></script>
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 		<script type="text/javascript" src="cliente.js"></script>
