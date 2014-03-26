@@ -1,19 +1,74 @@
+/*Imagens*/
 #esquerda{
-width: 100px;
-height: 100px;
+	width:100%;
+	/*min-width:50%;
+	max-width:90%;*/
+	-webkit-touch-callout: none;
 }
 #cima{
-width: 100px;
-height: 100px;
+	width:100%;
+	/*min-width:50%;
+	max-width:90%;*/
+	-webkit-touch-callout: none;
 }
 #baixo{
-width: 100px;
-height: 100px;
+	width:100%;
+	/*min-width:50%;
+	max-width:90%;*/
+	-webkit-touch-callout: none;
 }
 #direita{
-width: 100px;
-height: 100px;
+	width:100%;
+	/*min-width:50%;
+	max-width:90%;*/
+	-webkit-touch-callout: none;
 }
+#logo{
+	min-width:50%;
+	max-width:70%;
+	max-height:70%;
+	
+}
+
+#row{
+	width:100%;
+}
+
+#left{
+	float:left;
+	width:25%;	
+}
+#right{
+	float:left;
+	width:25%;
+}
+#middle {
+	float:left;
+	width:50%;
+	/*display: table-cell;*/
+}
+
+/*Td das imagens*/
+#esq,#dir,#bai,#cim{
+	width:25%;
+	
+}
+#mei, #log{
+	width: 50%;
+	
+}
+
+/*Body*/
 #myBody{
+	/*height:100%;*/
 	background-color:#CC0000;
+	
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	-webkit-touch-callout: none; 
 }

@@ -19,6 +19,7 @@ $(document).ready(function() {
 	var tempo = 10;
 	var nJogadores = 0;
 	var auxJogadores = 0;
+	var pontos = 0;
 	var counter = setInterval(timer, 1000);	//1000 will  run it every 1 second
 	
 	var socket = io.connect();
@@ -92,9 +93,13 @@ $(document).ready(function() {
 		if (tempo <= 0) {
 			//clearInterval(counter);
 			if (testaFigura(figuras[auxJogadores][aTestar])) {
-				alert("ok");
+				pontos = pontos + 5;
+				document.getElementById("pontos").innerHTML = pontos;
+				//alert("ok");
 			} else {
-				//alert("ko");
+				pontos = pontos - 5;
+				if(pontos < 0 ){pontos = 0;};
+				document.getElementById("pontos").innerHTML = pontos;
 			}
 			tempo = 10;
 			//counter = setInterval(timer, 1000);
@@ -102,7 +107,7 @@ $(document).ready(function() {
 			//return;
 		}
 		//Do code for showing the number of seconds here
-		document.getElementById("txt").innerHTML = tempo + " secs";
+		document.getElementById("txt").innerHTML = tempo;
 	}
 
 
@@ -110,10 +115,10 @@ $(document).ready(function() {
 		for (var j = 0; j < fig.figura.length; j++) {
 			var x = fig.figura[j].x * larg;
 			var y = fig.figura[j].y * larg;
-			mctx.fillStyle = "orange";
+			mctx.fillStyle = "white";
 			mctx.fillRect(x, y, larg, larg);
 			mctx.strokeStyle = "black";
-			mctx.lineWidth = 1;
+			mctx.lineWidth = 2;
 			mctx.strokeRect(x, y, larg, larg);
 		}
 	}
@@ -158,9 +163,9 @@ $(document).ready(function() {
 		y = y * larg;
 		ctx.fillStyle = fill;
 		ctx.fillRect(x, y, w, h);
-		ctx.strokeStyle = "black";
-		ctx.lineWidth = 1;
-		ctx.strokeRect(x, y, larg, larg);
+		//ctx.strokeStyle = "black";
+		//ctx.lineWidth = 1;
+		//ctx.strokeRect(x, y, larg, larg);
 		//document.getElementById('txt').innerHTML = JSON.stringify(f);
 	};
 
@@ -188,7 +193,7 @@ $(document).ready(function() {
 			
 			var cp = boxes[i];
 			
-			for(var j=1; j<fig.figura.length; j++) {
+			for(var j=0; j<fig.figura.length; j++) {
 				if (f[fig.figura[j].x+cp.x][fig.figura[j].y+cp.y] == 0) {
 					testaj = false;
 					break;

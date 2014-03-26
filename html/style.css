@@ -1,25 +1,105 @@
+@font-face {
+	font-family: "myFont";
+	src: url("font.TTF") format("opentype");
+}
+
 #myCanvas{
 	background: url(fundo.png);
-	border: 1px solid;
+	border-right: 6px solid black;
+	border-top: 6px solid black;
+	border-bottom: 6px solid black;
 	float: left;
 }
+#bdy{
+	background-color:#c5c5c5;	
+}
+#wrapper{
+	width:968px;
+	height:612px;
+	margin:0 auto;
+}
+#tempo{
+	width:150px;
+	height:100px;
+	border-right: 6px solid black;
+	border-left: 6px solid black;
+	border-top: 6px solid black;
+	border-bottom: 3px solid black;
+	font-family: myFont;
+	color: #FFF;
+	font-size: 80px;
+	text-align: center;
+}
+#pontosW{
+	width:150px;
+	height:100px;
+	border-right: 6px solid black;
+	border-left: 6px solid black;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+}
+#draw{
+	width:150px;
+	height:30px;
+	font-family: myFont;
+	color: #FFF;
+	margin-top:10px;	
+	font-size: 30px;
+	text-align: center;
+}
+#score{
+	width:150px;
+	height:30px;
+	font-family: myFont;
+	color: #FFF;
+	margin-top:10px;
+	font-size: 30px;
+	text-align: center;
+}
+#gameon{
+	width:150px;
+	height:30px;
+	font-family: myFont;
+	color: #FFF;
+	margin-top:10px;
+	font-size: 30px;
+	text-align: center;
+}
+
+#pontos{
+	width:150px;
+	height:36px;
+	font-family: myFont;
+	color: #ffe71f;
+	margin-top:10px;
+	font-size: 36px;
+	text-align: center;
+}
+#txt{
+	margin-top:15px;
+}
 #canvasFigura{
-	margin: 12.5px;
-	background-color:#ffffff; /*Branco*/
+	margin-left: 12.5px;
 }
 #figura{
 	width: 150px;
-	height: 150px;
-	background-color:#19469D; /*Azul*/
+	height: 175px;
+	border-right: 6px solid black;
+	border-left: 6px solid black;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
 }
 #left{
-	width: 150px;
-	height: 600px;
-	background-color:#008000; /*Verde*/
+	width: 162px;
+	height: 612px;
+	background: url(LeftBar.png);
 	float: left;
 }
-#qr{
-	float:right;
-	width: 100px;
-	height: 100px;
+#qrw{
+	width:150px;
+	height:207px;
+	border-right: 6px solid black;
+	border-left: 6px solid black;
+	border-top: 3px solid black;
+	border-bottom: 6px solid black;
 }

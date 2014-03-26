@@ -3,21 +3,47 @@
 	<title>XtrmPixel</title>
 	<head>
 		<script type="text/javascript" src="/jquery/jquery.min.js"></script>
-		<script>
-			$(document).bind("mobileinit", function(){
-				$.mobile.loadingMessage = false;
-			});
-		</script>
 		<script type="text/javascript" src="/jquery/jquery.mobile.min.js"></script>
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 		<script type="text/javascript" src="cliente.js"></script>
 		<link href="cliente.css" rel="stylesheet" type="text/css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scaleable=no">
 	</head>
-	<body id="myBody">
-	<img src="cima.png" id="cima"/>
-	<img src="esquerda.png" id="esquerda"/>
-	<img src="baixo.png" id="baixo"/>
-	<img src="direita.png" id="direita"/>
-	</body>
+	<body  id="myBody" oncontextmenu="return false;">  
+     
+   <div id="container">
+    <div id="row">
+    
+        <div id="left">
+            <img align="left" src="SetaEsq.png" id="esquerda"/>
+        </div>
+        
+        <div id="middle" align="center">
+            <img align="center" src="Logo.png" id="logo"/>
+        </div>
+        
+        <div id="right">
+            <img align="left" src="SetaCim.png" id="cima"/>
+        </div>
+        
+    </div>
+    
+    <div id="row">
+    
+        <div id="left">
+            <img align="left" src="SetaDir.png" id="direita"/>
+        </div>
+        
+        <div id="middle" align="center">
+            <img align="center" src="Texto.png" id="logo"/>
+        </div>
+        
+        <div id="right">
+            <img align="left" src="SetaBai.png" id="baixo"/>
+        </div>
+        
+    </div>
+</div>
+	
+</body>
 </html>
