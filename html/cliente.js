@@ -1,8 +1,19 @@
 $(document).ready(function() {
 	
+	var  myTime= setTimeout(kick,5000);
+	
+	function kick() {
+		alert("desliga!");
+	}
+	
+	function renewKick() {
+		clearTimeout(myTime);
+		myTime= setTimeout(kick,5000);
+	}
+	
 	document.ontouchmove = function(e) {
           e.preventDefault();
-	}
+	};
 	
 	
 	function updateOrientation(){ 
@@ -52,24 +63,28 @@ $(document).ready(function() {
 		$('myBody').on('contextmenu', 'img', function(e){ return false; });
 		//$("#esquerda").bind( "tap", tapHandler );
 		$('#esquerda').tap(function() {
+			renewKick();
 			socket.emit('click', {
 				"id" : myID,
 				"code" : 65
 			});
 		});
 		$('#baixo').tap(function() {
+			renewKick();
 			socket.emit('click', {
 				"id" : myID,
 				"code" : 83
 			});
 		});
 		$('#direita').tap(function() {
+			renewKick();
 			socket.emit('click', {
 				"id" : myID,
 				"code" : 68
 			});
 		});
 		$('#cima').tap(function() {
+			renewKick();
 			socket.emit('click', {
 				"id" : myID,
 				"code" : 87

@@ -55,11 +55,11 @@ $(document).ready(function() {
 				figuras[x][y] = 0;
 			}
 		}
-	figuras[2][0] = {"figura":[{x:0,y:0},{x:2,y:0}]};
-	figuras[2][1] = {"figura":[{x:0,y:0},{x:1,y:0}]};
-	figuras[2][2]= {"figura":[{x:0,y:0},{x:0,y:1}]};
-	figuras[2][3] = {"figura":[{x:0,y:0},{x:1,y:1}]};
-	figuras[2][4] = {"figura":[{x:0,y:0},{x:0,y:2}]};
+	figuras[2][0] = {"figura":[{x:0,y:0},{x:2,y:0}],"offset":{"x":1,"y":2}};
+	figuras[2][1] = {"figura":[{x:0,y:0},{x:1,y:0}],"offset":{"x":1,"y":2}};
+	figuras[2][2] = {"figura":[{x:0,y:0},{x:0,y:1}],"offset":{"x":1,"y":2}};
+	figuras[2][3] = {"figura":[{x:0,y:0},{x:1,y:1}],"offset":{"x":1,"y":2}};
+	figuras[2][4] = {"figura":[{x:0,y:0},{x:0,y:2}],"offset":{"x":1,"y":2}};
 	
 	figuras[3][0] = {"figura":[{x:0,y:0},{x:1,y:1},{x:2,y:2}]};
 	figuras[3][1] = {"figura":[{x:0,y:0},{x:0,y:1},{x:0,y:2}]};
@@ -110,11 +110,17 @@ $(document).ready(function() {
 		document.getElementById("txt").innerHTML = tempo;
 	}
 
+	/*var counter = setInterval(inactivo, 30000);
+	function inactivo(){
+		for(var i = 0; i < boxes.length; i++){
+			
+		}
+	}*/
 
 	function desenhaFigura(fig) {
 		for (var j = 0; j < fig.figura.length; j++) {
-			var x = fig.figura[j].x * larg;
-			var y = fig.figura[j].y * larg;
+			var x = (fig.figura[j].x + fig.offset.x) * larg;
+			var y = (fig.figura[j].y + fig.offset.y) * larg;
 			mctx.fillStyle = "white";
 			mctx.fillRect(x, y, larg, larg);
 			mctx.strokeStyle = "black";
@@ -194,7 +200,13 @@ $(document).ready(function() {
 			var cp = boxes[i];
 			
 			for(var j=0; j<fig.figura.length; j++) {
-				if (f[fig.figura[j].x+cp.x][fig.figura[j].y+cp.y] == 0) {
+				var xx = fig.figura[j].x+cp.x;
+				var yy = fig.figura[j].y+cp.y;
+				if (xx >= xMax || yy >= yMax) {
+					testaj = false;
+					break;
+				}
+				else if(f[xx][yy] == 0) {
 					testaj = false;
 					break;
 				}
