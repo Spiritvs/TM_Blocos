@@ -56,7 +56,12 @@ socketio.sockets.on('connection', function(client) {
 	id++;
 	aux++;
 	});
-
+	
+	client.on('update',function(){
+		count = connectedClients.length;
+		socketio.sockets.emit('count',{"count":count});
+	});
+	
 	client.on('disconnect', function() {
 		connectedClients.splice(connectedClients.indexOf(client), 1);
 		count = connectedClients.length;

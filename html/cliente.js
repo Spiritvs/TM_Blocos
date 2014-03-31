@@ -1,14 +1,15 @@
 $(document).ready(function() {
 	
-	var  myTime= setTimeout(kick,5000);
+	var  myTime= setTimeout(kick,40000);
 	
 	function kick() {
-		alert("desliga!");
+		socket.disconnect();
+		alert("Desligado por Inactividade!");
 	}
 	
 	function renewKick() {
 		clearTimeout(myTime);
-		myTime= setTimeout(kick,5000);
+		myTime= setTimeout(kick,40000);
 	}
 	
 	document.ontouchmove = function(e) {
