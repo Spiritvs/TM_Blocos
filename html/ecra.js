@@ -16,7 +16,7 @@ $(document).ready(function() {
 	var mc = document.getElementById("canvasFigura");
 	var mctx = mc.getContext("2d");
 
-	var tempo = 15;
+	var tempo = 10;
 	var nJogadores = 0;
 	var auxJogadores = 0;
 	var pontos = 0;
@@ -122,8 +122,8 @@ $(document).ready(function() {
 	figuras[9][9] = {"figura":[{x:0,y:0},{x:1,y:0},{x:2,y:0},{x:3,y:0},{x:4,y:0},{x:4,y:1},{x:4,y:2},{x:4,y:3},{x:4,y:4}],"offset":{"x":0,"y":0}};
 	};
 	
-	function timer() {
-		if(tempo == 15){
+	function timer(){
+		if(tempo == 10){
 			mc.width = mc.width;
 			aTestar = Math.floor((Math.random()*10));
 			if (nJogadores < 2) {nJogadores=2;};
@@ -141,7 +141,7 @@ $(document).ready(function() {
 				if(pontos < 0 ){pontos = 0;};
 				document.getElementById("pontos").innerHTML = pontos;
 			}
-		tempo = 15;
+		tempo = 10;
 		}
 		document.getElementById("txt").innerHTML = tempo;
 	}
@@ -184,7 +184,7 @@ $(document).ready(function() {
 
 	socket.on('count', function(data) {
 		nJogadores = data.count;
-		document.getElementById("contador").innerHTML = data.count;
+		//document.getElementById("contador").innerHTML = data.count;
 	}); 
 
 	
