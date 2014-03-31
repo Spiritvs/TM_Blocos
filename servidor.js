@@ -108,5 +108,5 @@ socketio.sockets.on('connection', function(client) {
 
 });
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 80;
 server.listen(port);
